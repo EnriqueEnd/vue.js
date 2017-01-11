@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no">
+		<link rel="stylesheet" type="text/css" href="ionic/css/ionic.min.css"/>
+		<link rel="stylesheet" type="text/css" href="libs/Font-Awesome-3.2.1/css/font-awesome.min.css"/>
+		<link rel="stylesheet" type="text/css" href="css/index.css"/>
+		<link rel="stylesheet" type="text/css" href="libs/bootstrap/css/bootstrap-theme.min.css"/>
+		<link rel="stylesheet" type="text/css" href="libs/Font-Awesome-3.2.1/css/font-awesome.min.css"/>
+		<link rel="stylesheet" type="text/css" href="libs/bootstrap/css/bootstrap.min.css"/>
+		<script src="libs/jquery/jquery-2.1.1.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="ionic/js/ionic.bundle.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/index01.js" type="text/javascript" charset="utf-8"></script>
+	</head>
+	<body ng-app='myApp' ng-controller='myCtrl'>
+		<!--引用侧栏菜单  ion-side-menus-->
+		<ion-side-menus>
+		  <!-- 中间内容 -->
+		  <ion-side-menu-content>
+		  	<!--引入头部  ion-header-bar-->
+		  	<ion-header-bar align-title="center" class="bar-assertive">
+			  <div class="buttons">
+			    <button class="button button-clear" ng-click="toggleLeft()">
+			    	<i class="ion-navicon-round"></i>
+			    </button>
+			  </div>
+			  <div class="item-input-inset title">
+				  <label class="item-input-wrapper">
+				    <i class="icon ion-ios-search placeholder-icon"></i>
+				    <input type="search" placeholder="Search">
+				  </label>
+				</div>
+			  <!--<h1 class="title">{{title}}</h1>-->
+			  <div class="buttons">
+			    <button class="button button-clear" ng-click="dayNight()">
+			    	<i class="ion-ios-moon"></i>
+			    </button>
+			  </div>
+			</ion-header-bar>
+			<!--菜单栏-->
+			<div class="bar has-header bar-stable" id="dh">
+				<div class="col-xs-2" style="padding: 0;margin: 0;text-align: center;"><a href="" ng-click='activeSlide(0)' ng-class='slideIndex==0? "activeSlide":"noactiveSlide"'>段子</a></div>
+				<div class="col-xs-2" style="padding: 0;margin: 0;text-align: center;"><a href="" ng-click='activeSlide(1)' ng-class='slideIndex==1? "activeSlide":"noactiveSlide"'>图片</a></div>
+				<div class="col-xs-2" style="padding: 0;margin: 0;text-align: center;"><a href="" ng-click='activeSlide(2)' ng-class='slideIndex==2? "activeSlide":"noactiveSlide"'>视频</a></div>
+				<div class="col-xs-2" style="padding: 0;margin: 0;text-align: center;"><a href="" ng-click='activeSlide(3)' ng-class='slideIndex==3? "activeSlide":"noactiveSlide"'>天气</a></div>
+				<div class="col-xs-2" style="padding: 0;margin: 0;text-align: center;"><a href="" ng-click='activeSlide(4)' ng-class='slideIndex==4? "activeSlide":"noactiveSlide"'>新闻</a></div>
+				<div class="col-xs-2" style="padding: 0;margin: 0;text-align: center;"><a href="" ng-click='activeSlide(5)' ng-class='slideIndex==5? "activeSlide":"noactiveSlide"'>音乐</a></div>
+			</div>
+			<!--滑动框-->
+			<ion-slide-box class="has-header "  on-slide-changed="slideHasChanged($index)">
+			<!--num1 段子-->
+			  <ion-slide>
+			  	<ion-content class="box blue">
+			  		<div class="tishi"><i class="icon-spinner icon-spin"></i>下拉加载</div>
+			    	<ion-refresher pulling-text="下拉刷新" on-refresh="doRefresh()"></ion-refresher>
+		            <div class="contents" ng-repeat='x in strs'>
+						<div class="text" >{{x.text}}</div>
+						<div class="comment"><span class="user">小野牛的小野牛</span>:  哈哈哈。。。</div>
+						<div class="tool">
+							<div class="col-xs-3"><i class="icon-thumbs-up"></i>{{x.love}}</div>
+							<div class="col-xs-3" style="padding: 0;margin: 0;"><i class="icon-comments-alt"></i>{{x.hate}} </div>
+							<div class="col-xs-4" style="padding: 0;margin: 0;">{{x.create_time}}</div>
+							<div class="col-xs-2"><i class="icon-share"></i></div>
+						</div>
+					</div>
+			    </ion-content>
+			  </ion-slide>
+			<!--num2 图片-->
+			  <ion-slide >
+			    <ion-content class="box blue">
+			    <div class="tishi1"><i class="icon-spinner icon-spin"></i>下拉加载</div>
+			    	<ion-refresher pulling-text="下拉刷新" on-refresh="doRefresh()"></ion-refresher>
+
+			    	<!--<div class="img"></div>	-->
+		            <div class="contents" ng-repeat='x in img'>
+		            	<div class="img" >
+		            		<img ng-src = '{{x.image3}}'>
+		            	</div>
+						<div class="text" >{{x.text}}</div>
+						<div class="tool tools " >
+							<div class="col-xs-7 "><img ng-src = '{{x.profile_image}}'>  {{x.name}}</div>
+							<div class="col-xs-3"><i class="icon-heart-empty"></i>{{x.love}}</div>
+							<div class="col-xs-2"><i class="ion-ios-close-outline"></i></div>
+						</div>
+					</div>
+			    </ion-content>
+			  </ion-slide>
+			<!--num3 视频-->
+			  <ion-slide>
+			    <ion-content class="box blue">
+			    <div class="tishi2"><i class="icon-spinner icon-spin"></i>下拉加载</div>
+			    	<ion-refresher pulling-text="下拉刷新" on-refresh="doRefresh()"></ion-refresher>
+
+			    	<!--<div class="video"></div>	-->
+		            <div class="contents" ng-repeat='x in video'>
+		            	<div class="video" >
+		            		<video ng-src = '{{x.video_uri| trusted}}' controls="controls"></video>
+		            	</div>
+						<div class="text" >{{x.text}}</div>
+						<div class="tool tools " >
+							<div class="col-xs-7 "><img ng-src = '{{x.profile_image}}'>  {{x.name}}</div>
+							<div class="col-xs-3"><i class="icon-heart-empty"></i>{{x.love}}</div>
+							<div class="col-xs-2"><i class="ion-more"></i></div>
+						</div>
+					</div>
+			    </ion-content>
+			  </ion-slide>
+			<!--num4 天气-->
+			  <ion-slide >
+			    <ion-content class="box blue has-footer">
+			    <!--<div class="tishi3"><i class="icon-spinner icon-spin"></i>下拉加载</div>-->
+			    <ion-refresher pulling-text="下拉加载更多" on-refresh="go()"></ion-refresher>
+			   <!-- 搜索框-->
+			    <div class="seaech-header item-input-inset">
+			    	 <label class="item-input-wrapper">
+			            <input type="text" placeholder="请输入城市名称" id="cityname" >
+			          </label>
+			          <button class="button button-small button-clear" ng-click = 'go()'>
+			            <i class="icon-search icon-2x"></i>
+			          </button>
+			    </div>
+			    <!--内容区域-->
+			    <div class="todayWeather">
+
+			    </div>
+			    <div class="ee">
+			    	<div class="ff" ng-repeat='x in weather'>
+			    		<div class="col-xs-5">
+			    			<p class="address">{{x.date}} </p>
+			    			<p class="address">{{x.type}} | {{x.fengli}}</p>
+			    		</div>
+			    		<div class="col-xs-7 font">{{(x.low.replace('低温',''))}}--{{(x.high.replace('高温',''))}}</div>
+			    	</div>
+			    	<div class="bot">
+
+			    		</div>
+
+			    </div>
+
+			    </ion-content>
+			  </ion-slide>
+			<!--num5 新闻-->
+			  <ion-slide>
+			    <ion-content class="box blue">
+			    <div class="tishi4"><i class="icon-spinner icon-spin"></i>下拉加载</div>
+
+			    	<ion-refresher pulling-text="下拉刷新" on-refresh="doRefresh()"></ion-refresher>
+			    	<div class="contents" ng-repeat='x in news'>
+						<div class="titles" ><a ng-href='{{x.link}}'>{{x.title}}</a></div>
+						<div class="news-img">
+							<div class="col-xs-4 n-img" style="padding: 0;margin: 0;">
+								<img ng-src = '{{x.imageurls[0].url}}' alt="没有更多配图!!!">
+							</div>
+							<div class="col-xs-4 n-img" style="padding: 0;margin: 0;">
+								<img ng-src = '{{x.imageurls[1].url}}' alt="没有更多配图!!!">
+							</div>
+							<div class="col-xs-4 n-img" style="padding: 0;margin: 0;">
+								<img ng-src = '{{x.imageurls[2].url}}' alt="没有更多配图!!!">
+							</div>
+						</div>
+						<div class="tool tools " >
+							<div class="col-xs-7 ">{{x.channelName}}</div>
+							<div class="col-xs-3" style="padding: 0;margin: 0;">{{x.pubDate}}</div>
+							<div class="col-xs-2"><i class="ion-more"></i></div>
+						</div>
+					</div>
+
+
+			    </ion-content>
+			  </ion-slide>
+			  <!--num6-->
+			  <ion-slide>
+			    <ion-content class="box pink">
+			    <div class="tishi5"><i class="icon-spinner icon-spin"></i>下拉加载</div>
+			    <ion-refresher pulling-text="下拉刷新" on-refresh="doRefresh()"></ion-refresher>
+			    5
+			    </ion-content>
+			  </ion-slide>
+			</ion-slide-box>
+		  </ion-side-menu-content>
+
+		  <!-- 左侧菜单 -->
+		  <ion-side-menu side="left">
+		  	我是侧栏内容
+		  </ion-side-menu>
+
+
+		</ion-side-menus>
+		<!--底部-->
+		<!--<ion-footer-bar align-title="left" class="bar-assertive">
+		  <div class="buttons">
+		    <button class="button button-clear">左侧按钮</button>
+		  </div>
+		  <h1 class="title">Title!</h1>
+		  <div class="buttons" ng-click="doSomething()">
+		    <button class="button">右侧按钮</button>
+		  </div>
+		</ion-footer-bar>-->
+	</body>
+</html>
